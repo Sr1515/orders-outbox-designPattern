@@ -64,8 +64,11 @@ class OrderItem(BaseModel):
     order = models.ForeignKey(
         Order,
         on_delete=models.CASCADE,
-        related_name='items'
+        related_name='items',
+        blank=True,
+        null=True,
     )
+    
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
@@ -75,7 +78,7 @@ class OrderItem(BaseModel):
     quantity = models.DecimalField(max_digits=10, decimal_places=0, default=0)
     
     def __str__(self):
-        return f"{self.product.name} (Order {self.order.code})"
+        return f"{self.product.name}"
     
     @property
     def subtotal(self):
