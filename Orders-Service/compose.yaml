@@ -1,9 +1,9 @@
 services:
   orders-api:
-    command: /start
     container_name: orders_api
     build:
       context: .
+    command: /start
     env_file:
       - ./.environment/.env.django
     ports:
@@ -11,8 +11,9 @@ services:
     volumes:
       - .:/app
       - static_volume:/app/static
-    networks:
-      - backend
+    depends_on:
+      - postgres
+      - rabbitmq
 
   postgres:
     image: postgres:15
@@ -21,21 +22,31 @@ services:
       - ./.environment/.env.postgres
     ports:
       - "5432:5432"
-    networks:
-      - backend
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  redis:
-    image: redis:latest
-    container_name: redis
-    networks:
-      - backend
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
     ports:
-      - "6379:6379"
+      - "5672:5672"
+      - "15672:15672"
+
+  relay-service:
+    container_name: relay_service
+    build:
+      context: ../Relay-Service/
+    env_file:
+      - ./.environment/.env.relay
+    volumes:
+      - ../Relay-Service:/app
+    depends_on:
+      - postgres
+      - rabbitmq
+    restart: always
 
 networks:
-  backend:
+  default:
     driver: bridge
 
 volumes:

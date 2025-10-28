@@ -10,8 +10,11 @@ off:
 log-orders:
 	docker compose logs -f orders-api
 
-log-redis:
-	docker compose logs -f redis
+log-rabbitmq:
+	docker compose logs -f rabbitmq
+
+log-relay:
+	docker compose logs -f relay-service
 
 log-postgres:
 	docker compose logs -f postgres
