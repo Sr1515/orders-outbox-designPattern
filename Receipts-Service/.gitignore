@@ -19,11 +19,12 @@ docker-compose.override.yml
 
 .environment/**/*
 
-!/.environment/Flask/
+!/.environment/flask/
 !/.environment/postgres/
 !/.environment/rabbitmq/
 
 !/.environment/**/.env.*.example
+!/.environment/**/init.sql
 
 .environment/Flask/.env.flask
 .environment/postgres/.env.postgres
