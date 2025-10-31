@@ -5,7 +5,7 @@ services:
       context: .
     command: /start
     env_file:
-      - ./.environment/.env.django
+      - ./.environment/django/.env.django
     ports:
       - "8000:8000"
     volumes:
@@ -19,7 +19,7 @@ services:
     image: postgres:15
     container_name: postgres
     env_file:
-      - ./.environment/.env.postgres
+      - ./.environment/postgres/.env.postgres
     ports:
       - "5432:5432"
     volumes:
@@ -37,7 +37,7 @@ services:
     build:
       context: ../Relay-Service/
     env_file:
-      - ./.environment/.env.relay
+      - ./.environment/rabbitmq/.env.relay
     volumes:
       - ../Relay-Service:/app
     depends_on:

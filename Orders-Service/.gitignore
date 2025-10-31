@@ -5,11 +5,17 @@ __pycache__/
 *.pyd
 *.so
 
+dist/
+build/
+.tmp/
+.sass-cache/
+
 *.log
 *.pot
 *.pyc
 *.manifest
 *.spec
+
 db.sqlite3
 db.sqlite3-journal
 coverage/
@@ -26,12 +32,6 @@ ENV/
 env.bak/
 venv.bak/
 
-/.environment/.env.django 
-/.environment/.env.postgres 
-
-!.environment/.env.django.example
-!.environment/.env.postgres.example
-
 .vscode/
 .idea/
 *.sublime-project
@@ -41,7 +41,9 @@ venv.bak/
 Thumbs.db
 desktop.ini
 
-dist/
-build/
-.tmp/
-.sass-cache/
+.environment/**/*
+
+!/.environment/django/
+!/.environment/postgres/
+!/.environment/rabbitmq/
+!/.environment/**/.env.*.example

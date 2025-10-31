@@ -1,0 +1,57 @@
+services:
+  receipts-api:
+    container_name: receipts-api
+    build:
+      context: .
+    environment:
+      - FLASK_APP=main.py
+    env_file:
+      - ./.environment/flask/.env.flask
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    depends_on:
+      - receipts-db
+    networks:
+      - receipts_network
+      - orders_network
+
+  receipts-consumer:
+    container_name: receipts-consumer
+    build:
+      context: .
+    command: ["python", "main.py", "consumer"]
+    env_file:
+      - ./.environment/rabbitmq/.env.rabbitmq
+    volumes:
+      - .:/app
+    depends_on:
+      - receipts-db
+    networks:
+      - receipts_network
+      - orders_network
+
+  receipts-db:
+    image: postgres:15
+    container_name: receipts-db
+    env_file:
+      - ./.environment/postgres/.env.postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_receipts_data:/var/lib/postgresql/data
+      - ./.environment/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - receipts_network
+
+volumes:
+  postgres_receipts_data:
+
+networks:
+  receipts_network:
+    driver: bridge
+
+  orders_network:
+    external: true
+    name: orders-service_default

@@ -116,7 +116,7 @@ class OrderAdmin(admin.ModelAdmin):
             items_data = [
                 {
                     "product_id": str(item.product.id),
-                    "quantity": float(item.quantity),
+                    "product_name": item.product.name, 
                 }
                 for item in obj.items.all()
             ]
@@ -124,6 +124,7 @@ class OrderAdmin(admin.ModelAdmin):
             body = {
                 "order_id": str(obj.id),
                 "user_id": obj.user.id,
+                "username": obj.user.username,
                 "total_amount": float(obj.total_amount),
                 "items": items_data
             }
@@ -131,6 +132,7 @@ class OrderAdmin(admin.ModelAdmin):
             OutboxEvent.objects.create(body=body)
 
         return created
+
     
     @admin.display(description='Total_Amount')
     def display_total_amount(self, obj):
