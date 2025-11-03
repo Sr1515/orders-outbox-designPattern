@@ -117,6 +117,8 @@ class OrderAdmin(admin.ModelAdmin):
                 {
                     "product_id": str(item.product.id),
                     "product_name": item.product.name, 
+                    "product_quantity": int(item.quantity),
+                    "product_price": float(item.product.price)
                 }
                 for item in obj.items.all()
             ]

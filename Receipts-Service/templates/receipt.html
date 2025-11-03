@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Receipt {{ receipt.id }}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/receipt.css') }}"
+    />
+  </head>
+  <body>
+    <div class="receipt-container">
+      <h1>Receipt</h1>
+
+      <div class="info">
+        <p><strong>User:</strong> {{ receipt.username }}</p>
+        <p><strong>Order ID:</strong> {{ receipt.order_id }}</p>
+      </div>
+
+      <h3>Items</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Preço por unidade</th>
+            <th>Valor total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in receipt.items %}
+          <tr>
+            <td>{{ item['product_name'] }}</td>
+            <td>{{ item['product_quantity'] }}</td>
+            <td>{{ item['product_price'] }}</td>
+            <td>{{ item['product_price'] * item['product_quantity'] }}</td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="total">Total: ${{ "%.2f"|format(receipt.ammount) }}</div>
+    </div>
+  </body>
+</html>

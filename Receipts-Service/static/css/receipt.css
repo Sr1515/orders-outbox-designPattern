@@ -1,0 +1,51 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 40px;
+  background-color: #f8f9fa;
+}
+
+.receipt-container {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 600px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.info {
+  margin-bottom: 20px;
+}
+
+.info p {
+  margin: 4px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.total {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 1.1em;
+  font-weight: bold;
+}
